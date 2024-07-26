@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Account</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header class="bg-dark text-white py-3 header expanded-header-footer" id="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="/">
+                <img src="img/logo.png" alt="EverTrust Bank Logo">
+                <span>EverTrust Bank</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post" class="logout-form">
+                            <i class="fas fa-sign-out-alt"></i><input type="submit" value="Logout" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    </div>
+
+</header>
+<div class="container mt-5">
+    <h2>Edit Account</h2>
+    <div th:if="${error}" class="alert alert-danger">
+        <p th:text="${error}"></p>
+    </div>
+    <form th:action="@{/manager/accounts/edit/{id}(id=${account.id})}" method="post" th:object="${account}">
+        <div class="form-group">
+            <label for="accountNumber">Account Number:</label>
+            <input type="text" id="accountNumber" class="form-control" th:field="*{accountNumber}" placeholder="Enter account number" />
+        </div>
+        <div class="form-group">
+            <label for="balance">Balance:</label>
+            <input type="text" id="balance" class="form-control" th:field="*{balance}" placeholder="Enter balance" />
+        </div>
+        <div class="form-group">
+            <label for="user">User:</label>
+            <select id="user" name="user.id" class="form-control" th:field="*{user.id}">
+                <option th:each="user : ${users}"
+                        th:value="${user.id}"
+                        th:text="${user.username}"
+                        th:selected="${account.user.id == user.id}">
+                </option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a th:href="@{/manager/accounts/list}" class="btn btn-secondary ml-2">Back to Accounts</a>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

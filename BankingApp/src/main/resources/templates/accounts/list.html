@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Accounts</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/footer.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-image: url('img/bg2.png');
+            background-size: cover;
+        }
+        .profile-picture {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .table td, .table th {
+            vertical-align: middle;
+        }
+        .header, .footer {
+            background-color: #343a40;
+        }
+        .navbar-brand img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .logout-form {
+            display: flex;
+            align-items: center;
+        }
+        .logout-form input {
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 5px;
+        }
+        .logout-form input:hover {
+            text-decoration: underline;
+        }
+        .search-bar {
+            position: relative;
+            margin-bottom: 20px;
+            max-width: 300px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 5px 30px 5px 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .search-bar .fa-search {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ced4da;
+        }
+        .table {
+            background-color: #ffffff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .table thead th {
+            background-color: #343a40;
+            color: #ffffff;
+            border: none;
+        }
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .table tbody tr:hover {
+            background-color: #e9ecef;
+        }
+        .btn {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<header class="bg-dark text-white py-3 header expanded-header-footer" id="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="/">
+                <img src="img/logo.png" alt="EverTrust Bank Logo">
+                <span>EverTrust Bank</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post" class="logout-form">
+                            <i class="fas fa-sign-out-alt"></i><input type="submit" value="Logout" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="container my-5">
+    <h2><i class="fas fa-university"></i> Accounts</h2>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search by account number...">
+        <i class="fas fa-search"></i>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th><i class="fas fa-id-badge"></i> ID</th>
+            <th><i class="fas fa-hashtag"></i> Account Number</th>
+            <th><i class="fas fa-list"></i> Account Type</th>
+            <th><i class="fas fa-dollar-sign"></i> Balance</th>
+            <th><i class="fas fa-cogs"></i> Actions</th>
+        </tr>
+        </thead>
+        <tbody id="accountTable">
+        <tr th:each="account : ${accounts}">
+            <td th:text="${account.id}"></td>
+            <td th:text="${account.accountNumber}"></td>
+            <td th:text="${account.accountType}"></td>
+            <td th:text="${account.balance}"></td>
+            <td>
+                <a th:href="@{/manager/accounts/edit/{id}(id=${account.id})}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <a th:href="@{/manager/accounts/admin/delete/{id}(id=${account.id})}" class="btn btn-danger btn-sm" th:onclick="return confirm('Are you sure you want to delete this account?');">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/manager/accounts/create" class="btn btn-success">
+        <i class="fas fa-plus"></i> Create New Account
+    </a>
+</div>
+<footer class="bg-dark text-white text-center py-3 mt-auto">
+    <div class="container">
+        <p>&copy; 2024 Banking App. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Font Awesome -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+<!-- Search Functionality Script -->
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        var searchValue = this.value.toLowerCase();
+        var rows = document.getElementById('accountTable').getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+            var accountNumberCell = rows[i].getElementsByTagName('td')[1];
+            if (accountNumberCell) {
+                var accountNumber = accountNumberCell.textContent.toLowerCase();
+                if (accountNumber.indexOf(searchValue) > -1) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Payment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .header {
+            background-color: #2a2a2a;
+        }
+        .navbar-brand img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .container1 {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 50px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<header class="bg-dark text-white py-3 header" id="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="/">
+                <img src="img/logo.jpg" alt="EverTrust Bank Logo">
+                <span>EverTrust Bank</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post" class="logout-form">
+                            <i class="fas fa-sign-out-alt"></i><input type="submit" value="Logout" class="btn btn-link text-white" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container container1 mt-5">
+    <h2 class="text-center mb-4"><i class="fas fa-search-dollar"></i> Enter Loan ID</h2>
+    <form method="get" th:action="@{/payments/makepayment}">
+        <div class="form-group">
+            <label for="loanId"><i class="fas fa-id-badge"></i> Loan ID</label>
+            <input type="number" class="form-control" id="loanId" name="loanId" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-search"></i> Submit</button>
+    </form>
+</div>
+
+<div th:if="${loan != null}">
+    <div class="container mt-5">
+        <h2 class="text-center mb-4"><i class="fas fa-dollar-sign"></i> Make Payment</h2>
+        <div>
+            <h4><i class="fas fa-info-circle"></i> Loan Details</h4>
+            <p><strong>Loan ID:</strong> <span th:text="${loan.id}"></span></p>
+            <p><strong>Amount:</strong> <span th:text="${loan.amount}"></span></p>
+            <p><strong>Interest Rate:</strong> <span th:text="${loan.interestRate}"></span></p>
+            <p><strong>Status:</strong> <span th:text="${loan.status}"></span></p>
+        </div>
+        <form th:action="@{/payments/postmakepayment}" method="post">
+            <input type="hidden" name="loanId" th:value="${loan.id}">
+            <div class="form-group">
+                <label for="amount"><i class="fas fa-dollar-sign"></i> Payment Amount</label>
+                <input type="number" class="form-control" id="amount" name="amount" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="paymentStatus"><i class="fas fa-info-circle"></i> Payment Status</label>
+                <select class="form-control" id="paymentStatus" name="paymentStatus" required>
+                    <option value="PENDING">Pending</option>
+                    <option value="COMPLETED">Completed</option>
+                    <option value="FAILED">Failed</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> Make Payment</button>
+        </form>
+    </div>
+</div>
+
+<div th:if="${loan == null}">
+    <div class="container mt-5">
+        <div class="alert alert-danger text-center">
+            <i class="fas fa-exclamation-triangle"></i> Loan not found. Please check the Loan ID and try again.
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript; choose one of the two! -->
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

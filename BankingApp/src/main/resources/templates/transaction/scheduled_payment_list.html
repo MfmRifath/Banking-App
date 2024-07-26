@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Scheduled Payment List</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    body {
+               background-image: url('img/bg2.jpg');
+               background-size: cover;
+           }
+</style>
+</head>
+<body>
+<header class="bg-dark text-white py-3 header" id="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="/">
+                <img src="img/logo.jpg" alt="EverTrust Bank Logo">
+                <span>EverTrust Bank</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post" class="logout-form">
+                            <i class="fas fa-sign-out-alt"></i><input type="submit" value="Logout" class="btn btn-link text-white" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container mt-5">
+    <h1 class="mb-4">Scheduled Payment List</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Account Number</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Scheduled Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="scheduledPayment : ${scheduledPayments}">
+            <td th:text="${scheduledPayment.account.accountNumber}"></td>
+            <td th:text="${scheduledPayment.amount}"></td>
+            <td th:text="${scheduledPayment.description}"></td>
+            <td th:text="${#temporals.format(scheduledPayment.scheduledDate, 'dd-MM-yyyy HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

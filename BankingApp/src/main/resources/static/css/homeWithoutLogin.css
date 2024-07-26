@@ -1,0 +1,216 @@
+ body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            background-image: url('img/bg2.jpg');
+            background-size: cover;
+            overflow-x: hidden;
+        }
+        .body1 {
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header, footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+        }
+
+        header {
+            top: 0;
+        }
+
+        footer {
+            bottom: 0;
+        }
+
+        nav a {
+            margin: 0 15px;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        section {
+            height: 100vh;
+            padding: 80px 20px 60px; /* Add space for fixed header and footer */
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .home {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .home h1 {
+            font-size: 3rem;
+            color: #4caf50;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .feature {
+            width: 30%;
+            min-width: 250px;
+            margin: 20px 0;
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #4caf50;
+        }
+
+        .feature h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .feature p {
+            color: #666;
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content h2 {
+            color: #333;
+        }
+
+        .content p {
+            color: #666;
+        }
+
+        .content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .content ul li {
+            background: #f5f5f5;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form input, .contact-form textarea {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .contact-form button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #4caf50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background: #45a049;
+        }
+        img {
+            height: 80px; /* Increase the size of the logo */
+            width: 80px; /* Set the width to match the height */
+            border-radius: 50%; /* Make the logo circular */
+            margin-right: 10px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .card h1 {
+            font-size: 2rem;
+            color: #343a40;
+        }
+        .card .form-group label {
+            color: #343a40;
+        }
+        .card .form-control {
+            border-radius: 5px;
+        }
+        .btn-link {
+            color: #007bff;
+        }
+        .btn-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        .icon {
+            font-size: 2rem;
+        }
+        .rounded-circle {
+            width: 100px;
+            height: 100px;
+        }
+        .toggle-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1100;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .toggle-btn:hover {
+            background: #45a049;
+        }

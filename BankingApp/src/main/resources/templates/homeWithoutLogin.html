@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVER TRUST BANK</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body, html {
+                   margin: 0;
+                   padding: 0;
+                   font-family: Arial, sans-serif;
+                   height: 100%;
+                   background-image: url('img/bg2.jpg');
+                   background-size: cover;
+                   overflow-x: hidden;
+               }
+               .body1 {
+                   background-size: cover;
+                   background-position: center;
+                   height: 100vh;
+                   display: flex;
+                   align-items: center;
+                   justify-content: center;
+               }
+
+               header, footer {
+                   background: rgba(0, 0, 0, 0.7);
+                   color: #fff;
+                   padding: 15px 0;
+                   text-align: center;
+                   width: 100%;
+                   position: fixed;
+                   z-index: 1000;
+                   transition: all 0.3s ease-in-out;
+               }
+
+               header {
+                   top: 0;
+               }
+
+               footer {
+                   bottom: 0;
+               }
+
+               nav a {
+                   margin: 0 15px;
+                   color: #fff;
+                   text-decoration: none;
+                   cursor: pointer;
+               }
+
+               section {
+                   height: 100vh;
+                   padding: 80px 20px 60px; /* Add space for fixed header and footer */
+                   box-sizing: border-box;
+                   display: flex;
+                   justify-content: center;
+                   align-items: center;
+                   flex-direction: column;
+               }
+
+               .home {
+                   background: rgba(255, 255, 255, 0.8);
+                   border-radius: 15px;
+                   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+                   padding: 20px;
+                   text-align: center;
+               }
+
+               .home h1 {
+                   font-size: 3rem;
+                   color: #4caf50;
+               }
+
+               .features {
+                   display: flex;
+                   justify-content: space-around;
+                   flex-wrap: wrap;
+                   margin-top: 30px;
+               }
+
+               .feature {
+                   width: 30%;
+                   min-width: 250px;
+                   margin: 20px 0;
+                   background: #f5f5f5;
+                   border-radius: 10px;
+                   padding: 20px;
+                   transition: transform 0.3s ease, box-shadow 0.3s ease;
+               }
+
+               .feature:hover {
+                   transform: translateY(-10px);
+                   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+               }
+
+               .feature-icon {
+                   font-size: 2.5rem;
+                   margin-bottom: 10px;
+                   color: #4caf50;
+               }
+
+               .feature h3 {
+                   margin: 0;
+                   font-size: 1.5rem;
+                   color: #333;
+               }
+
+               .feature p {
+                   color: #666;
+               }
+
+               .content {
+                   background: rgba(255, 255, 255, 0.8);
+                   border-radius: 15px;
+                   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+                   padding: 20px;
+                   text-align: center;
+               }
+
+               .content h2 {
+                   color: #333;
+               }
+
+               .content p {
+                   color: #666;
+               }
+
+               .content ul {
+                   list-style-type: none;
+                   padding: 0;
+               }
+
+               .content ul li {
+                   background: #f5f5f5;
+                   margin: 10px 0;
+                   padding: 10px;
+                   border-radius: 5px;
+               }
+
+               .contact-form {
+                   display: flex;
+                   flex-direction: column;
+               }
+
+               .contact-form input, .contact-form textarea {
+                   margin: 10px 0;
+                   padding: 10px;
+                   border-radius: 5px;
+                   border: 1px solid #ccc;
+               }
+
+               .contact-form button {
+                   padding: 10px;
+                   border: none;
+                   border-radius: 5px;
+                   background: #4caf50;
+                   color: white;
+                   cursor: pointer;
+               }
+
+               .contact-form button:hover {
+                   background: #45a049;
+               }
+               img {
+                   height: 80px; /* Increase the size of the logo */
+                   width: 80px; /* Set the width to match the height */
+                   border-radius: 50%; /* Make the logo circular */
+                   margin-right: 10px;
+               }
+
+               .card {
+                   background: rgba(255, 255, 255, 0.9);
+                   border-radius: 15px;
+                   padding: 30px;
+                   width: 100%;
+                   max-width: 500px;
+                   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+               }
+               .card h1 {
+                   font-size: 2rem;
+                   color: #343a40;
+               }
+               .card .form-group label {
+                   color: #343a40;
+               }
+               .card .form-control {
+                   border-radius: 5px;
+               }
+               .btn-link {
+                   color: #007bff;
+               }
+               .btn-link:hover {
+                   color: #0056b3;
+                   text-decoration: underline;
+               }
+               .icon {
+                   font-size: 2rem;
+               }
+               .rounded-circle {
+                   width: 100px;
+                   height: 100px;
+               }
+               .toggle-btn {
+                   position: fixed;
+                   bottom: 20px;
+                   right: 20px;
+                   z-index: 1100;
+                   background: #4caf50;
+                   color: white;
+                   border: none;
+                   border-radius: 50%;
+                   width: 50px;
+                   height: 50px;
+                   font-size: 1.5rem;
+                   display: flex;
+                   align-items: center;
+                   justify-content: center;
+                   cursor: pointer;
+               }
+               .toggle-btn:hover {
+                   background: #45a049;
+               }
+    </style>
+</head>
+<body>
+<header class="d-flex justify-content-between align-items-center" id="header">
+    <a class="navbar-brand" href="/">
+        <img src="img/logo.jpg" alt="EverTrust Bank Logo">
+        <span>EverTrust Bank</span>
+    </a>
+    <nav class="d-flex align-items-center">
+        <a href="#home" class="nav-link d-inline">Home</a>
+        <a href="#services" class="nav-link d-inline">Services</a>
+        <a href="#contact" class="nav-link d-inline">Contact</a>
+        <a href="#about" class="nav-link d-inline">About Us</a>
+        <a href="#login" class="nav-link d-inline">Login</a>
+    </nav>
+</header>
+
+<section id="home" class="home">
+    <h1>Welcome to MyBank</h1>
+    <p>Your trusted partner in banking, providing you with the best services to manage
+        your finances effectively and securely.</p>
+    <div class="features">
+        <div class="feature">
+            <div class="feature-icon">💳</div>
+            <h3>Easy Transfers</h3>
+            <p>Quick and secure transfers to any bank in the world.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">📈</div>
+            <h3>Track Spending</h3>
+            <p>Detailed reports to help you manage your finances better.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🔒</div>
+            <h3>Secure Banking</h3>
+            <p>Top-notch security to keep your money safe.</p>
+        </div>
+    </div>
+</section>
+
+<section id="services" class="content">
+    <h2>Our Services</h2>
+    <ul>
+        <li><strong>Checking Accounts:</strong> Manage your daily expenses with our easy-to-use checking accounts.</li>
+        <li><strong>Savings Accounts:</strong> Grow your savings with our high-interest savings accounts.</li>
+        <li><strong>Loans:</strong> Affordable personal, auto, and home loans to meet your financial needs.</li>
+        <li><strong>Credit Cards:</strong> Variety of credit card options with great rewards and benefits.</li>
+        <li><strong>Investment Services:</strong> Expert advice to help you invest wisely and grow your wealth.</li>
+    </ul>
+</section>
+
+<section id="contact" class="content">
+    <h2>Contact Us</h2>
+    <p>Have questions or need assistance? Get in touch with us through our customer service channels:</p>
+    <form class="contact-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message" rows="4" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</section>
+
+<section id="about" class="content">
+    <h2>About Us</h2>
+    <p>MyBank has been a trusted name in the banking industry for over 50 years. We are committed to providing excellent services and products to our customers. Our mission is to help you achieve your financial goals through innovative and secure banking solutions.</p>
+    <p><strong>Our Values:</strong></p>
+    <ul>
+        <li>Integrity</li>
+        <li>Customer Focus</li>
+        <li>Innovation</li>
+        <li>Excellence</li>
+        <li>Teamwork</li>
+    </ul>
+</section>
+
+<section id="login" class="login body1">
+    <div class="container d-flex align-items-center justify-content-center">
+        <div class="row w-100">
+            <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                <div class="card">
+                    <div class="text-center mb-4">
+                        <img src="img/logo.jpg" class="img-fluid rounded-circle mb-3" alt="User Icon">
+                        <h1 class="mb-4"><i class="fas fa-user-lock icon"></i> Login</h1>
+                    </div>
+                    <form th:action="@{/}" method="post">
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="/register" class="btn btn-link">Register</a>
+                    </div>
+                    <div th:if="${param.error}" class="alert alert-danger mt-3">
+                        Invalid username and password.
+                    </div>
+                    <div th:if="${param.logout}" class="alert alert-success mt-3">
+                        <p>You have been logged out successfully.</p>
+                    </div>
+                    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<footer id="footer">
+    <p>&copy; 2024 MyBank. All rights reserved.</p>
+    <p>
+        <a href="#privacy" class="text-white">Privacy Policy</a>
+        <a href="#terms" class="text-white ml-2">Terms of Service</a>
+    </p>
+</footer>
+
+<button class="toggle-btn" id="toggle-header-footer-btn">T</button>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Smooth scrolling
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Toggle header and footer
+    document.getElementById('toggle-header-footer-btn').addEventListener('click', function() {
+        var header = document.getElementById('header');
+        var footer = document.getElementById('footer');
+        if (header.style.display === 'none' && footer.style.display === 'none') {
+            header.style.display = 'flex';
+            footer.style.display = 'block';
+        } else {
+            header.style.display = 'none';
+            footer.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>

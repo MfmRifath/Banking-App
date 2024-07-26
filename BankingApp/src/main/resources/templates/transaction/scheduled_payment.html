@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Scheduled Payment</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-image: url('img/bg2.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-brand img {
+            height: 50px; /* Adjust size of the logo */
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .container1 {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<header class="bg-dark text-white py-3 header" id="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="/">
+                <img src="img/logo.jpg" alt="EverTrust Bank Logo">
+                <span>EverTrust Bank</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post" class="logout-form">
+                            <i class="fas fa-sign-out-alt"></i><input type="submit" value="Logout" class="btn btn-link text-white" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container container1 mt-5">
+    <h1 class="mb-4"><i class="fas fa-calendar-check"></i> Scheduled Payment</h1>
+    <form th:action="@{/transactions/schedule}" method="post">
+        <div class="form-group">
+            <label for="accountNumber"><i class="fas fa-user"></i> Account Number:</label>
+            <input type="text" class="form-control" id="accountNumber" name="accountNumber" required>
+        </div>
+        <div class="form-group">
+            <label for="amount"><i class="fas fa-dollar-sign"></i> Amount:</label>
+            <input type="number" class="form-control" id="amount" name="amount" required>
+        </div>
+        <div class="form-group">
+            <label for="date"><i class="fas fa-calendar-alt"></i> Date:</label>
+            <input type="datetime-local" class="form-control" id="date" name="date" required>
+        </div>
+        <div class="form-group">
+            <label for="description"><i class="fas fa-info-circle"></i> Description:</label>
+            <input type="text" class="form-control" id="description" name="description">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> Schedule Payment</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

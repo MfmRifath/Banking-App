@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Transaction Home</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-image: url('img/bg2.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .header, .footer {
+            background-color: #343a40;
+            color: white;
+        }
+        .navbar-brand img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .logout-form {
+            display: flex;
+            align-items: center;
+        }
+        .logout-form input {
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 5px;
+        }
+        .logout-form input:hover {
+            text-decoration: underline;
+        }
+        .container1 {
+            max-width: 900px;
+            margin-top: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-group-vertical .btn,
+        .list-group .nav-link {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<header class="bg-dark text-white py-3 header" id="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="/">
+                <img src="img/logo.jpg" alt="EverTrust Bank Logo">
+                <span>EverTrust Bank</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post" class="logout-form">
+                            <i class="fas fa-sign-out-alt"></i><input type="submit" value="Logout" class="btn btn-link text-white" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="container container1 mt-5">
+    <h1 class="mb-4 text-center"><i class="fas fa-money-check-alt"></i> Transaction Home</h1>
+
+    <div class="row mb-4 text-center">
+        <div class="col-md-4">
+            <a th:href="@{/transactions/transfer}" class="btn btn-primary btn-block">
+                <i class="fas fa-exchange-alt"></i> Transfer Funds
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a th:href="@{/transactions/bill}" class="btn btn-warning btn-block">
+                <i class="fas fa-file-invoice-dollar"></i> Bill Payment
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a th:href="@{/transactions/schedule}" class="btn btn-success btn-block">
+                <i class="fas fa-calendar-alt"></i> Scheduled Payment
+            </a>
+        </div>
+    </div>
+
+    <div class="list-group mb-4">
+        <a class="nav-link list-group-item list-group-item-action" th:href="@{/transactions/transferList}">
+            <i class="fas fa-list"></i> Transfer List
+        </a>
+        <a class="nav-link list-group-item list-group-item-action" th:href="@{/transactions/billPaymentList}">
+            <i class="fas fa-list"></i> Bill Payment List
+        </a>
+        <a class="nav-link list-group-item list-group-item-action" th:href="@{/transactions/scheduledPaymentList}">
+            <i class="fas fa-list"></i> Scheduled Payment List
+        </a>
+    </div>
+
+    <h2 class="mb-4"><i class="fas fa-eye"></i> View Transactions</h2>
+    <form th:action="@{/transactions/home2}" method="get">
+        <div class="form-group">
+            <label for="accountNumber">Account Number:</label>
+            <input type="text" class="form-control" id="accountNumber" name="accountNumber" required>
+        </div>
+        <button type="submit" class="btn btn-info btn-block"><i class="fas fa-eye"></i> View Transactions</button>
+    </form>
+
+    <div th:if="${transactions}">
+        <h2 class="mt-4">Transactions for Account: <span th:text="${accountNumber}"></span></h2>
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="thead-dark">
+            <tr>
+                <th>Transaction ID</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="transaction : ${transactions}">
+                <td th:text="${transaction.id}"></td>
+                <td th:text="${transaction.transactionType}"></td>
+                <td th:text="${transaction.amount}"></td>
+                <td th:text="${#dates.format(transaction.transactionDate, 'yyyy-MM-dd HH:mm')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="mt-4"><i class="fas fa-money-bill-wave"></i> Deposit Money</h2>
+    <div th:if="${successMessage}" class="alert alert-success mt-3" role="alert">
+        <span th:text="${successMessage}"></span>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger mt-3" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
+    <form th:action="@{/transactions/deposit}" method="post">
+        <div class="form-group">
+            <label for="depositAccountNumber">Account Number:</label>
+            <input type="text" class="form-control" id="depositAccountNumber" name="accountNumber" required>
+        </div>
+        <div class="form-group">
+            <label for="depositAmount">Amount:</label>
+            <input type="number" class="form-control" id="depositAmount" name="amount" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-arrow-circle-down"></i> Deposit</button>
+    </form>
+
+    <h2 class="mt-4"><i class="fas fa-money-bill-wave-alt"></i> Withdraw Money</h2>
+    <form th:action="@{/transactions/withdraw}" method="post">
+        <div class="form-group">
+            <label for="withdrawAccountNumber">Account Number:</label>
+            <input type="text" class="form-control" id="withdrawAccountNumber" name="accountNumber" required>
+        </div>
+        <div class="form-group">
+            <label for="withdrawAmount">Amount:</label>
+            <input type="number" class="form-control" id="withdrawAmount" name="amount" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-arrow-circle-up"></i> Withdraw</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Font Awesome -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+</html>

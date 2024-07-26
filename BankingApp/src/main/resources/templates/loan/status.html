@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan Status</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .header {
+        background-color: #2a2a2a;
+    }
+    .navbar-brand img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .container1 {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        padding: 30px;
+        margin-top: 50px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .form-group label {
+        font-weight: bold;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+    .table thead th {
+        background-color: #007bff;
+        color: white;
+    }
+  </style>
+</head>
+<body>
+<header class="bg-dark text-white py-3 header" id="header">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="/">
+        <img src="img/logo.jpg" alt="EverTrust Bank Logo">
+        <span>EverTrust Bank</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <form th:action="@{/logout}" method="post" class="logout-form">
+              <i class="fas fa-sign-out-alt"></i><input type="submit" value="Logout" class="btn btn-link text-white" />
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+<div class="container container1 mt-5">
+  <h2 class="text-center mb-4"><i class="fas fa-info-circle"></i> Loan Status</h2>
+
+  <!-- Success message -->
+  <div class="alert alert-success" th:if="${message}" th:text="${message}"></div>
+
+  <!-- Error message -->
+  <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+  <form method="get" th:action="@{/loans/status}">
+    <div class="form-group">
+      <label for="loanId"><i class="fas fa-id-badge"></i> Loan ID</label>
+      <input type="number" class="form-control" id="loanId" name="loanId" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-search"></i> Check Status</button>
+  </form>
+
+  <div class="mt-4" th:if="${loan != null}">
+    <h4><i class="fas fa-info-circle"></i> Loan Status for Loan ID: <span th:text="${loan.id}"></span></h4>
+    <table class="table table-bordered mt-3">
+      <thead>
+      <tr>
+        <th>Loan ID</th>
+        <th>Amount</th>
+        <th>Interest Rate</th>
+        <th>Status</th>
+        <th>Applied Date</th>
+        <th>Approved Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td th:text="${loan.id}"></td>
+        <td th:text="${loan.amount}"></td>
+        <td th:text="${loan.interestRate}"></td>
+        <td th:text="${loan.status}"></td>
+        <td th:text="${loan.appliedDate}"></td>
+        <td th:text="${loan.approvedDate}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Optional JavaScript; choose one of the two! -->
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

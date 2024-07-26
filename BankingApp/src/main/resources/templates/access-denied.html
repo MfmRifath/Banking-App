@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Access Denied</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+
+        .background-image {
+            background-image: url('img/bg2.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .overlay {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+        }
+        .rounded-circle {
+            border: 5px solid #dc3545;
+        }
+    </style>
+</head>
+<body class="background-image">
+<div class="overlay text-center">
+    <img th:src="@{${user.profilePictureUrl}}" class="img-fluid rounded-circle mb-4" alt="Profile Picture">
+    <h1 class="display-4 text-danger"><i class="fas fa-ban"></i> Access Denied</h1>
+    <p class="lead">You do not have permission to access this page.</p>
+    <a href="/login" class="btn btn-primary btn-lg"><i class="fas fa-sign-in-alt"></i> Login</a>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

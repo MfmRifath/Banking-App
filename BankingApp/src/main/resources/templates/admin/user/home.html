@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>EverTrust Bank</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+        background-image: url('img/bg2.png');
+        background-size: cover;
+        background-attachment: fixed;
+    }
+    .sidebar {
+        background-color: #343a40;
+        color: #ffffff;
+    }
+    .sidebar .nav-link {
+        color: #ffffff;
+    }
+    .sidebar .nav-link:hover {
+        background-color: #495057;
+    }
+    .header, .footer {
+        background-color: #2a2a2a;
+    }
+    .navbar-brand img {
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+    .logout-form {
+        display: flex;
+        align-items: center;
+    }
+    .logout-form input {
+        background: none;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-left: 5px;
+    }
+    .logout-form input:hover {
+        text-decoration: underline;
+    }
+    .carousel-inner img {
+        height: 300px;
+        object-fit: cover;
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<header class="bg-dark text-white py-3 header expanded-header-footer" id="header">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="/">
+        <img src="img/logo.png" alt="EverTrust Bank Logo">
+        <span>EverTrust Bank</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <form th:action="@{/logout}" method="post" class="logout-form">
+              <i class="fas fa-sign-out-alt"></i><input type="submit" value="Logout" />
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+</header>
+<main class="container my-5 flex-grow-1">
+  <h2 class="text-center mb-4">User Management</h2>
+  <div class="list-group mb-4">
+    <a href="/admin/users/list" class="list-group-item list-group-item-action"><i class="fas fa-list"></i> List Users</a>
+    <a href="/admin/users/create" class="list-group-item list-group-item-action"><i class="fas fa-user-plus"></i> Create New User</a>
+  </div>
+</main>
+<footer class="bg-dark text-white text-center py-3 mt-auto">
+  <div class="container">
+    <p>&copy; 2024 EverTrust Bank. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

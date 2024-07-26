@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/home.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-image: url('img/bg2.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .glass-effect {
+            background: rgba(173, 216, 230, 0.5); /* Light blue with transparency */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: black; /* Black text color */
+        }
+        .sidebar {
+            background-color: rgba(52, 58, 64, 0.8); /* Dark background color for sidebar */
+            color: #ffffff; /* White text color for sidebar */
+        }
+        .sidebar .nav-link {
+            color: #ffffff; /* White text color for sidebar links */
+        }
+        .sidebar .nav-link:hover {
+            background-color: rgba(73, 80, 87, 0.8); /* Slightly lighter background on hover */
+        }
+        .navbar-brand img {
+            height: 80px; /* Increase the size of the logo */
+            width: 80px; /* Set the width to match the height */
+            border-radius: 50%; /* Make the logo circular */
+            margin-right: 10px;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .carousel-inner img {
+            height: 200px; /* Smaller height for carousel images */
+            width: 100%; /* Ensure full width */
+            object-fit: contain; /* Ensure the entire image fits within the container */
+        }
+        .main-images img {
+            height: 200px; /* Smaller height for main images */
+            width: 100%; /* Ensure full width */
+            object-fit: contain; /* Ensure the entire image fits within the container */
+        }
+        .scroll-header {
+            background-color: rgba(173, 216, 230, 0.8); /* Darker light blue */
+        }
+        .scroll-footer {
+            background-color: rgba(173, 216, 230, 0.8); /* Darker light blue */
+        }
+    </style>
+</head>
+<body>
+<header class="py-3 glass-effect" id="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="/">
+                <img src="img/logo.jpg" alt="EverTrust Bank Logo">
+                <span>EverTrust Bank</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post" class="logout-form">
+                            <i class="fas fa-sign-out-alt"></i><input type="submit" value="Logout" class="btn btn-link text-black" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container-fluid">
+    <div class="row">
+        <button class="sidebar-toggle" id="sidebar-toggle">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <aside class="sidebar expanded-sidebar glass-effect" id="sidebar">
+            <div class="sidebar-header">
+                <h4>Welcome!</h4>
+            </div>
+            <div class="user-info text-center">
+                <img th:src="@{${user.profilePictureUrl}}" alt="Profile Picture" class="profile-picture img-thumbnail">
+                <h4 th:text="${user.username}"></h4>
+            </div>
+            <hr>
+            <div class="p-3">
+                <h5>User Details</h5>
+                <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+                <div th:if="${account != null}">
+                    <p>Account Number: <span th:text="${account.accountNumber}"></span></p>
+                    <p><strong>Account Type:</strong> <span th:text="${account.accountType}"></span></p>
+                    <p><strong>Account Balance:</strong> <span th:text="${account.balance}"></span></p>
+                </div>
+                <div th:if="${account == null}">
+                    <p>Account is not yet created.</p>
+                </div>
+                <p><strong>Roles:</strong></p>
+                <ul class="list-unstyled">
+                    <li th:each="role : ${user.roles}" th:text="${role.name}"></li>
+                </ul>
+            </div>
+            <hr>
+            <nav class="nav flex-column">
+                <a class="nav-link" href="/admin/users/home"><i class="fas fa-users-cog"></i> User Management</a>
+                <a class="nav-link" href="/manager/accounts/list"><i class="fas fa-wallet"></i> Manage Your Accounts</a>
+                <a class="nav-link" href="/transactions/home"><i class="fas fa-exchange-alt"></i> Manage Your Transactions</a>
+                <a class="nav-link" href="/loans/home"><img src="img/loan.png" alt="Loan Icon" style="height: 20px; width: 20px; margin-right: 5px;"> Loan Services</a>
+            </nav>
+        </aside>
+        <main class="col-md-9 offset-md-3 my-5 main-content expanded-content" id="main-content">
+            <h2 class="mb-4">Our Services</h2>
+            <div class="row">
+                <div class="col-md-4 mb-3" th:each="service : ${services}">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${service.name}">Service Name</h5>
+                            <p class="card-text" th:text="${service.description}">Service Description</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<footer class="text-center py-3 glass-effect" id="footer">
+    <div class="container">
+        <p>&copy; 2024 Banking App. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Font Awesome -->
+<script src="/js/home.js"></script>
+
+</body>
+</html>
