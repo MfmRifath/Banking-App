@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,15 +89,15 @@
                 <a th:href="@{/loans/showstatus}" class="nav-link"><i class="fas fa-info-circle"></i> Loan Status</a>
             </li>
             <li class="nav-item">
-                <a th:href="@{/loans/showhistory}" class="nav-link"><i class="fas fa-history"></i> Loan History</a>
+                <a sec:authorize="hasRole('ADMIN')"  th:href="@{/loans/showhistory}" class="nav-link"><i class="fas fa-history"></i> Loan History</a>
             </li>
             <li class="nav-item">
                 <a href="/payments/makepayment" class="nav-link"><i class="fas fa-dollar-sign"></i> Make a Payment</a>
             </li>
-            <li class="nav-item">
+            <li sec:authorize="hasRole('ADMIN')"  class="nav-item">
                 <a href="/payments/paymenthistory" class="nav-link"><i class="fas fa-receipt"></i> Payment History</a>
             </li>
-            <li class="nav-item">
+            <li sec:authorize="hasRole('ADMIN')" class="nav-item">
                 <a href="/loans/all" class="nav-link"><i class="fas fa-list"></i> Loan List</a>
             </li>
         </ul>

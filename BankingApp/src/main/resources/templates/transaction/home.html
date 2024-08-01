@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 <head>
     <title>Transaction Home</title>
     <meta charset="UTF-8">
@@ -112,8 +112,8 @@
         </a>
     </div>
 
-    <h2 class="mb-4"><i class="fas fa-eye"></i> View Transactions</h2>
-    <form th:action="@{/transactions/home2}" method="get">
+    <h2 sec:authorize="hasRole('ADMIN,MANAGER')"  class="mb-4"><i class="fas fa-eye"></i> View Transactions</h2>
+    <form sec:authorize="hasRole('ADMIN,MANAGER')"  th:action="@{/transactions/home2}" method="get">
         <div class="form-group">
             <label for="accountNumber">Account Number:</label>
             <input type="text" class="form-control" id="accountNumber" name="accountNumber" required>
@@ -121,7 +121,7 @@
         <button type="submit" class="btn btn-info btn-block"><i class="fas fa-eye"></i> View Transactions</button>
     </form>
 
-    <div th:if="${transactions}">
+    <div sec:authorize="hasRole('MANAGER')"  th:if="${transactions}">
         <h2 class="mt-4">Transactions for Account: <span th:text="${accountNumber}"></span></h2>
         <table class="table table-bordered table-striped mt-3">
             <thead class="thead-dark">
@@ -143,14 +143,14 @@
         </table>
     </div>
 
-    <h2 class="mt-4"><i class="fas fa-money-bill-wave"></i> Deposit Money</h2>
-    <div th:if="${successMessage}" class="alert alert-success mt-3" role="alert">
+    <h2 sec:authorize="hasRole('ADMIN,MANAGER')"  class="mt-4"><i class="fas fa-money-bill-wave"></i> Deposit Money</h2>
+    <div sec:authorize="hasRole('ADMIN,MANAGER')"  th:if="${successMessage}" class="alert alert-success mt-3" role="alert">
         <span th:text="${successMessage}"></span>
     </div>
     <div th:if="${errorMessage}" class="alert alert-danger mt-3" role="alert">
         <span th:text="${errorMessage}"></span>
     </div>
-    <form th:action="@{/transactions/deposit}" method="post">
+    <form sec:authorize="hasRole('ADMIN')"  th:action="@{/transactions/deposit}" method="post">
         <div class="form-group">
             <label for="depositAccountNumber">Account Number:</label>
             <input type="text" class="form-control" id="depositAccountNumber" name="accountNumber" required>
@@ -162,8 +162,8 @@
         <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-arrow-circle-down"></i> Deposit</button>
     </form>
 
-    <h2 class="mt-4"><i class="fas fa-money-bill-wave-alt"></i> Withdraw Money</h2>
-    <form th:action="@{/transactions/withdraw}" method="post">
+    <h2 sec:authorize="hasRole('ADMIN,MANAGER')"  class="mt-4"><i class="fas fa-money-bill-wave-alt"></i> Withdraw Money</h2>
+    <form sec:authorize="hasRole('ADMIN,MANAGER')"  th:action="@{/transactions/withdraw}" method="post">
         <div class="form-group">
             <label for="withdrawAccountNumber">Account Number:</label>
             <input type="text" class="form-control" id="withdrawAccountNumber" name="accountNumber" required>
